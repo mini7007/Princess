@@ -18,6 +18,18 @@ function SparklesLayer() {
   )}</div>;
 }
 
+function MemoryBackdrop({ scene }: { scene: number }) {
+  const photos = princessDay.gallery;
+  if (photos.length === 0) return null;
+
+  return <div className="memory-backdrop" aria-hidden="true">
+    {Array.from({ length: 4 }, (_, index) => {
+      const photo = photos[(scene * 4 + index) % photos.length];
+      return <img key={`${scene}-${index}`} className={`memory-photo memory-photo-${index}`} src={photo.src} alt="" loading="lazy" decoding="async" />;
+    })}
+  </div>;
+}
+
 type SceneProps = {
   scene: number;
   audioRef: React.RefObject<HTMLAudioElement | null>;
@@ -66,7 +78,9 @@ function SceneContent(props: SceneProps) {
 
   if (scene === 1) return (
     <div className="profile-layout content-width">
-      <div className="portrait-frame"><div className="portrait-placeholder"><Heart /><span>Royal portrait</span><small>Add her photo in media.ts</small></div></div>
+      <div className="portrait-frame">{princessDay.profilePortrait
+        ? <img className="portrait-image" src={princessDay.profilePortrait} alt={princessDay.recipientName} />
+        : <div className="portrait-placeholder"><Heart /><span>Royal portrait</span><small>Add her photo in media.ts</small></div>}</div>
       <div className="profile-copy"><p className="eyebrow">Meet the Princess</p><h2>{princessDay.recipientName}</h2><div className="royal-title">THE ONE &amp; ONLY</div>
         <p className="profile-compliment">{princessDay.introduction}</p><span className="signature">Since {princessDay.relationshipStart}</span></div>
     </div>
@@ -176,6 +190,7 @@ export default function PrincessKingdom() {
   return (
     <main className="kingdom-shell">
       <SparklesLayer />
+      <MemoryBackdrop scene={entered ? scene : 0} />
       {!entered ? (
         <section className="portal scene">
           <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="castle" aria-label="Pink castle">

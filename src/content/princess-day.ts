@@ -8,6 +8,7 @@ export const princessDay = {
   openingMessage: "Today, this little kingdom has been created for one very special person.",
   introductionTitle: "Her Royal Introduction",
   introduction: "Not every princess lives in a fairytale castle. Some make ordinary days feel magical just by being themselves.",
+  profilePortrait: media.profilePortrait,
   gallery: media.gallery,
   letters: [
     { title: "Why you are my favourite person", body: "You have a way of making ordinary moments feel warmer, gentler and worth remembering." },

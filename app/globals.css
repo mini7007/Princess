@@ -181,3 +181,32 @@ body { background: var(--lily-cream); color: var(--lily-ink); }
 @media (max-width: 800px) {
   .kingdom-shell::before, .kingdom-shell::after { width: 52vw; opacity: .48; }
 }
+.memory-backdrop { position: fixed; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+.memory-photo {
+  position: absolute;
+  width: clamp(100px, 10vw, 155px);
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  padding: 6px 6px 18px;
+  border: 1px solid rgba(255,255,255,.8);
+  border-radius: 5px;
+  background: rgba(255,255,255,.74);
+  opacity: .2;
+  filter: saturate(.78);
+  box-shadow: 0 14px 36px rgba(70,70,111,.18);
+}
+.memory-photo-0 { top: 13%; left: 2%; transform: rotate(-8deg); }
+.memory-photo-1 { top: 30%; right: 2%; transform: rotate(7deg); }
+.memory-photo-2 { bottom: 12%; left: 4%; transform: rotate(6deg); }
+.memory-photo-3 { right: 4%; bottom: 9%; transform: rotate(-7deg); }
+.portrait-image { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 210px 210px 22px 22px; }
+@media (max-width: 1200px) {
+  .memory-photo { width: clamp(72px, 9vw, 105px); opacity: .14; }
+}
+@media (max-width: 800px) {
+  .memory-photo { width: 74px; opacity: .13; padding: 4px 4px 12px; }
+  .memory-photo-0 { top: 12%; left: -24px; }
+  .memory-photo-1 { top: 28%; right: -24px; }
+  .memory-photo-2 { bottom: 18%; left: -31px; }
+  .memory-photo-3 { right: -31px; bottom: 8%; }
+}
