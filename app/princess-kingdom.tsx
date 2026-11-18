@@ -74,7 +74,7 @@ function SceneContent(props: SceneProps) {
   if (scene === 2) return (
     <div className="content-width"><div className="section-heading"><p className="eyebrow">Our little moments</p><h2>Little moments, endless memories.</h2></div>
       {princessDay.gallery.length === 0 ? <div className="empty-gallery"><div className="empty-polaroid">♡</div><h3>A gallery waiting for memories</h3><p>Add ImageKit photo URLs, titles and captions in <code>src/content/media.ts</code>.</p></div> :
-        <div className="gallery-grid">{princessDay.gallery.map((photo) => <article key={photo.src} className="polaroid"><img src={photo.src} alt={photo.title} /><strong>{photo.title}</strong><small>{photo.caption}</small></article>)}</div>}
+        <div className="gallery-grid">{princessDay.gallery.map((photo) => <article key={photo.src} className="polaroid"><img src={photo.src} alt={photo.title} loading="lazy" decoding="async" /><strong>{photo.title}</strong>{photo.caption && <small>{photo.caption}</small>}</article>)}</div>}
     </div>
   );
   if (scene === 3) return (
