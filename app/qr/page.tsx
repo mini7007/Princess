@@ -14,8 +14,8 @@ export default function QRPage() {
     const production = process.env.NEXT_PUBLIC_PRODUCTION_URL;
     const target = production || window.location.origin;
     setUrl(target);
-    QRCode.toDataURL(target, { width: 800, margin: 4, color: { dark: "#76516f", light: "#fff9f1" }, errorCorrectionLevel: "H" }).then(setPng);
-    QRCode.toString(target, { type: "svg", width: 800, margin: 4, color: { dark: "#76516f", light: "#fff9f1" }, errorCorrectionLevel: "H" }).then(setSvg);
+    QRCode.toDataURL(target, { width: 800, margin: 4, color: { dark: "#514878", light: "#fffaf5" }, errorCorrectionLevel: "H" }).then(setPng);
+    QRCode.toString(target, { type: "svg", width: 800, margin: 4, color: { dark: "#514878", light: "#fffaf5" }, errorCorrectionLevel: "H" }).then(setSvg);
   }, []);
 
   const download = (content: string, name: string, type: string) => {
@@ -34,7 +34,7 @@ export default function QRPage() {
       </section>
       <div className="qr-actions"><button onClick={() => download(png, "bachas-little-kingdom.png", "image/png")} disabled={!png}>Download PNG</button><button onClick={() => download(svg, "bachas-little-kingdom.svg", "image/svg+xml")} disabled={!svg}>Download SVG</button><button onClick={() => window.print()}>Print A4 card</button></div>
       <style>{`
-        .qr-page{min-height:100vh;background:#fff9f1;color:#76516f;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;font-family:Arial,sans-serif}.qr-card{width:min(580px,100%);min-height:760px;background:linear-gradient(145deg,#fff9f1,#fce4ec);border:10px solid white;border-radius:30px;box-shadow:0 20px 60px rgba(118,81,111,.14);text-align:center;padding:40px 50px}.qr-card>p{font-size:58px;color:#e7c77a;margin:0}.qr-card h1{font-family:Georgia,serif;font-size:36px}.qr-card img{width:min(390px,100%);display:block;margin:20px auto;border-radius:8px}.qr-card h2{font-family:Georgia,serif;font-size:24px}.qr-card small{overflow-wrap:anywhere}.qr-actions{display:flex;gap:10px;margin-top:18px}.qr-actions button{border:0;border-radius:999px;background:#76516f;color:white;padding:12px 18px}@media print{@page{size:A4;margin:15mm}.qr-page{min-height:auto;padding:0}.qr-actions{display:none}.qr-card{margin:auto}}
+        .qr-page{min-height:100vh;background:linear-gradient(135deg,#fffaf5,#e8effb 62%,#eee9f8);color:#514878;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;font-family:Arial,sans-serif}.qr-card{width:min(580px,100%);min-height:760px;background:linear-gradient(145deg,#fffaf5,#e5eafa 58%,#e8e2f5);border:10px solid white;border-radius:30px;box-shadow:0 20px 60px rgba(81,72,120,.14);text-align:center;padding:40px 50px}.qr-card>p{font-size:58px;color:#7867bd;margin:0}.qr-card h1{font-family:Georgia,serif;font-size:36px}.qr-card img{width:min(390px,100%);display:block;margin:20px auto;border-radius:8px}.qr-card h2{font-family:Georgia,serif;font-size:24px}.qr-card small{overflow-wrap:anywhere}.qr-actions{display:flex;gap:10px;margin-top:18px}.qr-actions button{border:0;border-radius:999px;background:linear-gradient(110deg,#6e70b2,#668acb);color:white;padding:12px 18px}@media print{@page{size:A4;margin:15mm}.qr-page{min-height:auto;padding:0}.qr-actions{display:none}.qr-card{margin:auto}}
       `}</style>
     </main>
   );
