@@ -1,5 +1,5 @@
 export const media = {
-  profilePortrait: "https://ik.imagekit.io/Myimage/Her/WhatsApp%20Image%202026-11-18%20at%2010.20.44%20PM.jpeg?updatedAt=1795021668351",
+  profilePortrait: "https://ik.imagekit.io/Myimage/Her/WhatsApp%20Image%202026-11-18%20at%2010.20.20%20PM%20(11).jpeg?updatedAt=1795021657435",
   gallery: [
     { src: "https://ik.imagekit.io/Myimage/Her/WhatsApp%20Image%202026-11-18%20at%2010.20.44%20PM.jpeg?updatedAt=1795021668351", title: "Photo 01", caption: "" },
     { src: "https://ik.imagekit.io/Myimage/Her/WhatsApp%20Image%202026-11-18%20at%2010.20.44%20PM%20(1).jpeg?updatedAt=1795021668357", title: "Photo 02", caption: "" },
