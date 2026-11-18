@@ -63,6 +63,13 @@ function MiniDoodle({ person }: { person: "mohan" | "bacha" }) {
   </svg>;
 }
 
+function HerPhotoSticker({ className = "" }: { className?: string }) {
+  if (!princessDay.profilePortrait) return null;
+  return <span className={`her-photo-sticker ${className}`} aria-hidden="true">
+    <img src={princessDay.profilePortrait} alt="" loading="lazy" decoding="async" />
+  </span>;
+}
+
 type SceneProps = {
   scene: number;
   audioRef: React.RefObject<HTMLAudioElement | null>;
@@ -113,24 +120,26 @@ function SceneContent(props: SceneProps) {
     <div className="profile-layout content-width">
       <div className="portrait-frame">{princessDay.profilePortrait
         ? <img className="portrait-image" src={princessDay.profilePortrait} alt={princessDay.recipientName} />
-        : <div className="portrait-placeholder"><Heart /><span>Royal portrait</span><small>Add her photo in media.ts</small></div>}</div>
-      <div className="profile-copy"><p className="eyebrow">Meet the Princess</p><h2>{princessDay.recipientName}</h2><div className="royal-title">THE ONE &amp; ONLY</div>
+        : <div className="portrait-placeholder"><Heart /><span>Royal portrait</span><small>Add her photo in media.ts</small></div>}
+        <HerPhotoSticker className="portrait-sticker" />
+      </div>
+      <div className="profile-copy"><p className="eyebrow">Meet Mera Bacha</p><h2>{princessDay.recipientName}</h2><div className="royal-title">THE ONE &amp; ONLY</div>
         <p className="profile-compliment">{princessDay.introduction}</p><span className="signature">Since {princessDay.relationshipStart}</span></div>
     </div>
   );
   if (scene === 2) return (
     <div className="content-width"><div className="section-heading"><p className="eyebrow">Our little moments</p><h2>Little moments, endless memories.</h2></div>
       {princessDay.gallery.length === 0 ? <div className="empty-gallery"><div className="empty-polaroid">♡</div><h3>A gallery waiting for memories</h3><p>Add ImageKit photo URLs, titles and captions in <code>src/content/media.ts</code>.</p></div> :
-        <div className="gallery-grid">{princessDay.gallery.map((photo) => <article key={photo.src} className="polaroid"><img src={photo.src} alt={photo.title} loading="lazy" decoding="async" /><strong>{photo.title}</strong>{photo.caption && <small>{photo.caption}</small>}</article>)}</div>}
+        <div className="gallery-grid">{princessDay.gallery.map((photo) => <article key={photo.src} className="polaroid photo-card"><img src={photo.src} alt={photo.title} loading="lazy" decoding="async" /><HerPhotoSticker /><strong>{photo.title}</strong>{photo.caption && <small>{photo.caption}</small>}</article>)}</div>}
     </div>
   );
   if (scene === 3) return (
     <div className="content-width"><div className="section-heading"><p className="eyebrow">Letters from Mohan</p><h2>Some things deserve to be written.</h2></div>
       <div className="letter-grid">{princessDay.letters.map((letter, i) => <button key={letter.title} className="envelope photo-card" style={photoCardStyle(i)} onClick={() => setOpenLetter(openLetter === i ? null : i)}>
-        <span className="seal">M</span><LetterText /><strong>{letter.title}</strong><small>{openLetter === i ? "Close letter" : "Open letter"}</small>
+        <HerPhotoSticker /><span className="seal">M</span><LetterText /><strong>{letter.title}</strong><small>{openLetter === i ? "Close letter" : "Open letter"}</small>
       </button>)}</div>
       <AnimatePresence>{openLetter !== null && <motion.div className="letter-modal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        <motion.article className="photo-card" style={photoCardStyle(openLetter)} initial={{ y: 30, scale: 0.96 }} animate={{ y: 0, scale: 1 }}><button onClick={() => setOpenLetter(null)} aria-label="Close letter"><X /></button><p className="eyebrow">A letter for you</p><h3>{princessDay.letters[openLetter].title}</h3><p className="letter-body">{princessDay.letters[openLetter].body}</p><span className="signature">With love, Mohan ♡</span></motion.article>
+        <motion.article className="photo-card" style={photoCardStyle(openLetter)} initial={{ y: 30, scale: 0.96 }} animate={{ y: 0, scale: 1 }}><HerPhotoSticker /><button onClick={() => setOpenLetter(null)} aria-label="Close letter"><X /></button><p className="eyebrow">A letter for you</p><h3>{princessDay.letters[openLetter].title}</h3><p className="letter-body">{princessDay.letters[openLetter].body}</p><span className="signature">With love, Mohan ♡</span></motion.article>
       </motion.div>}</AnimatePresence>
     </div>
   );
@@ -139,7 +148,7 @@ function SceneContent(props: SceneProps) {
     const audioRef = props.audioRef;
     return (
       <div className="content-width radio-layout"><div className="section-heading"><p className="eyebrow">Our little radio</p><h2>A song for every little feeling.</h2></div>
-        <div className="player photo-card" style={photoCardStyle(props.track)}><div className="record"><div className="record-label">♫</div></div><div className="player-copy"><p>NOW PLAYING</p><h3>{song.title}</h3><span>{song.artist}</span></div>
+        <div className="player photo-card" style={photoCardStyle(props.track)}><HerPhotoSticker /><div className="record"><div className="record-label">♫</div></div><div className="player-copy"><p>NOW PLAYING</p><h3>{song.title}</h3><span>{song.artist}</span></div>
           <audio ref={audioRef} src={song.url || undefined} preload="metadata" onTimeUpdate={(e) => props.setProgress(e.currentTarget.duration ? e.currentTarget.currentTime / e.currentTarget.duration : 0)}
             onEnded={() => props.repeat ? audioRef.current?.play() : props.changeTrack(1)} onError={() => props.setPlaying(false)} />
           {props.error && <p className="player-error">{props.error}</p>}
@@ -147,22 +156,23 @@ function SceneContent(props: SceneProps) {
           <div className="player-buttons"><button onClick={() => props.changeTrack(-1)}><SkipBack /></button><button className="play-main" onClick={props.toggleTrack}>{props.playing ? <Pause /> : <Play />}</button><button onClick={() => props.changeTrack(1)}><SkipForward /></button></div>
           <div className="player-tools"><button onClick={() => props.setRepeat(!props.repeat)} className={props.repeat ? "active" : ""}><Repeat2 /></button><button onClick={() => props.setMuted(!props.muted)}>{props.muted ? <VolumeX /> : <Volume2 />}</button><input aria-label="Volume" type="range" min="0" max="1" step="0.05" value={props.volume} onChange={(e) => props.setVolume(Number(e.target.value))} /></div>
         </div>
-        <div className="playlist">{princessDay.music.map((item, i) => <button key={item.title} className={`photo-card ${i === props.track ? "active" : ""}`} style={photoCardStyle(i, i === props.track)} onClick={() => { props.setTrack(i); props.setProgress(0); props.setPlaying(false); }}><span>{String(i + 1).padStart(2, "0")}</span><strong>{item.title}</strong><small>{item.artist}</small></button>)}</div>
+        <div className="playlist">{princessDay.music.map((item, i) => <button key={item.title} className={`photo-card ${i === props.track ? "active" : ""}`} style={photoCardStyle(i, i === props.track)} onClick={() => { props.setTrack(i); props.setProgress(0); props.setPlaying(false); }}><HerPhotoSticker /><span>{String(i + 1).padStart(2, "0")}</span><strong>{item.title}</strong><small>{item.artist}</small></button>)}</div>
       </div>
     );
   }
   if (scene === 5) return (
-    <div className="content-width"><div className="section-heading"><p className="eyebrow">25 little reasons</p><h2>Why you&apos;re so special.</h2></div><div className="reason-grid">{princessDay.reasons.map((reason, i) => <motion.button key={i} className={`reason-card photo-card ${flipped.includes(i) ? "flipped" : ""}`} style={photoCardStyle(i, flipped.includes(i))} onClick={() => setFlipped((old) => old.includes(i) ? old.filter((n) => n !== i) : [...old, i])} whileTap={{ scale: 0.97 }}><span>{String(i + 1).padStart(2, "0")}</span>{flipped.includes(i) ? <strong>{reason}</strong> : <><Heart /><small>Tap to reveal</small></>}</motion.button>)}</div></div>
+    <div className="content-width"><div className="section-heading"><p className="eyebrow">25 little reasons</p><h2>Why you&apos;re so special.</h2></div><div className="reason-grid">{princessDay.reasons.map((reason, i) => <motion.button key={i} className={`reason-card photo-card ${flipped.includes(i) ? "flipped" : ""}`} style={photoCardStyle(i, flipped.includes(i))} onClick={() => setFlipped((old) => old.includes(i) ? old.filter((n) => n !== i) : [...old, i])} whileTap={{ scale: 0.97 }}><HerPhotoSticker /><span>{String(i + 1).padStart(2, "0")}</span>{flipped.includes(i) ? <strong>{reason}</strong> : <><Heart /><small>Tap to reveal</small></>}</motion.button>)}</div></div>
   );
   if (scene === 6) return (
-    <div className="content-width"><div className="section-heading"><p className="eyebrow">Open your surprises</p><h2>I kept some little surprises for you.</h2></div><div className="gift-grid">{princessDay.gifts.map((gift, i) => <motion.button key={i} className={`gift-box photo-card ${openGifts.includes(i) ? "open" : ""}`} style={photoCardStyle(i)} onClick={() => setOpenGifts((old) => old.includes(i) ? old : [...old, i])} whileHover={{ y: -5 }}><Gift /><span>Surprise {i + 1}</span>{openGifts.includes(i) && <strong>{gift}</strong>}</motion.button>)}</div></div>
+    <div className="content-width"><div className="section-heading"><p className="eyebrow">Open your surprises</p><h2>I kept some little surprises for you.</h2></div><div className="gift-grid">{princessDay.gifts.map((gift, i) => <motion.button key={i} className={`gift-box photo-card ${openGifts.includes(i) ? "open" : ""}`} style={photoCardStyle(i)} onClick={() => setOpenGifts((old) => old.includes(i) ? old : [...old, i])} whileHover={{ y: -5 }}><HerPhotoSticker /><Gift /><span>Surprise {i + 1}</span>{openGifts.includes(i) && <strong>{gift}</strong>}</motion.button>)}</div></div>
   );
   if (scene === 7) return (
-    <div className="wishes-wrap"><div className="section-heading"><p className="eyebrow">My wishes for you</p><h2>If I could wish a thousand beautiful things...</h2></div><div className="wish-grid">{princessDay.wishes.map((wish, i) => <motion.div key={wish} className="photo-card" style={photoCardStyle(i)} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}><span>✦</span><p>{wish}</p></motion.div>)}</div></div>
+    <div className="wishes-wrap"><div className="section-heading"><p className="eyebrow">My wishes for you</p><h2>If I could wish a thousand beautiful things...</h2></div><div className="wish-grid">{princessDay.wishes.map((wish, i) => <motion.div key={wish} className="photo-card" style={photoCardStyle(i)} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}><HerPhotoSticker /><span>✦</span><p>{wish}</p></motion.div>)}</div></div>
   );
   if (scene === 8) return (
     <div className="hug-layout"><div className="section-heading"><p className="eyebrow">A little hug from me</p><h2>Two little doodles, one big hug.</h2></div>
       <button className={`hug-stage ${hugged ? "hugged" : ""}`} onClick={() => setHugged(!hugged)} aria-label={hugged ? "Separate Mohan and Bacha's doodles" : "Bring Mohan and Bacha's doodles together for a hug"}>
+        <HerPhotoSticker className="hug-sticker" />
         <motion.div className="mini-doodle-character doodle-mohan" animate={{ x: hugged ? 48 : 0, rotate: hugged ? 7 : -3 }} transition={{ type: "spring", stiffness: 160, damping: 14 }}><MiniDoodle person="mohan" /></motion.div>
         <motion.div className="mini-doodle-character doodle-bacha" animate={{ x: hugged ? -48 : 0, rotate: hugged ? -7 : 3 }} transition={{ type: "spring", stiffness: 160, damping: 14 }}><MiniDoodle person="bacha" /></motion.div>
         <AnimatePresence>{hugged && <motion.div className="hug-burst" initial={{ opacity: 0, scale: .2 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .2 }}><Heart fill="currentColor" /></motion.div>}</AnimatePresence>
@@ -173,16 +183,16 @@ function SceneContent(props: SceneProps) {
     </div>
   );
   if (scene === 9) return (
-    <div className="content-width"><div className="section-heading"><p className="eyebrow">Our future dreams</p><h2>Some beautiful things are still waiting to happen.</h2></div><div className="dream-grid">{princessDay.futureDreams.map((dream, i) => <motion.article key={dream.title} className="photo-card" style={photoCardStyle(i)} initial={{ rotate: i % 2 ? 2 : -2 }} whileHover={{ rotate: 0, y: -6 }}><span>{String(i + 1).padStart(2, "0")}</span><h3>{dream.title}</h3><p>{dream.text}</p></motion.article>)}</div></div>
+    <div className="content-width"><div className="section-heading"><p className="eyebrow">Our future dreams</p><h2>Some beautiful things are still waiting to happen.</h2></div><div className="dream-grid">{princessDay.futureDreams.map((dream, i) => <motion.article key={dream.title} className="photo-card" style={photoCardStyle(i)} initial={{ rotate: i % 2 ? 2 : -2 }} whileHover={{ rotate: 0, y: -6 }}><HerPhotoSticker /><span>{String(i + 1).padStart(2, "0")}</span><h3>{dream.title}</h3><p>{dream.text}</p></motion.article>)}</div></div>
   );
   if (scene === 10) return (
-    <div className="message-layout"><div className="section-heading"><p className="eyebrow">Your turn, Princess</p><h2>Your message to Mohan.</h2><p>I made this little world for you. If anything made you smile, or if there&apos;s something you want to tell me, I&apos;d love to hear it.</p></div>
-      {sent ? <motion.div className="sent-state photo-card" style={photoCardStyle(0)} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}><Heart fill="currentColor" /><h3>Your little message was saved.</h3><p>Thank you for leaving something from your heart. <span>♡</span></p></motion.div> :
+    <div className="message-layout"><div className="section-heading"><p className="eyebrow">Your turn, Mera Bacha</p><h2>Your message to Mohan.</h2><p>I made this little world for you. If anything made you smile, or if there&apos;s something you want to tell me, I&apos;d love to hear it.</p></div>
+      {sent ? <motion.div className="sent-state photo-card" style={photoCardStyle(0)} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}><HerPhotoSticker /><Heart fill="currentColor" /><h3>Your little message was saved.</h3><p>Thank you for leaving something from your heart. <span>♡</span></p></motion.div> :
       <div className="message-form"><div className="mood-options">{["You made me smile.", "This was adorable.", "I loved the surprises.", "I have something to tell you.", "Just sending you a hug."].map((option) => <button key={option} className={mood === option ? "active" : ""} onClick={() => setMood(option)}>{option}</button>)}</div><textarea value={message} onChange={(e) => setMessage(e.target.value)} maxLength={2000} placeholder="Leave a little message for me..." /><button className="primary-button" disabled={sending || !message.trim()} onClick={submitMessage}>{sending ? "Saving..." : "Send a little message"} <Heart size={18} /></button>{submitError && <p className="form-error">{submitError}</p>}</div>}
     </div>
   );
   if (scene === 11) return (
-    <div className="farewell"><motion.div className="farewell-heart" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", delay: 0.2 }}><Heart fill="currentColor" /></motion.div><p className="eyebrow">One last thing, my princess</p><h2>{princessDay.finalMessage}</h2><p className="farewell-signature">With lots of love,<br /><strong>Mohan ♡</strong></p><button className="primary-button" onClick={() => props.go(1)}><RotateCcw /> Visit My Kingdom Again</button></div>
+    <div className="farewell"><HerPhotoSticker className="farewell-sticker" /><motion.div className="farewell-heart" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", delay: 0.2 }}><Heart fill="currentColor" /></motion.div><p className="eyebrow">One last thing, Mera Bacha</p><h2>{princessDay.finalMessage}</h2><p className="farewell-signature">With lots of love,<br /><strong>Mohan ♡</strong></p><button className="primary-button" onClick={() => props.go(1)}><RotateCcw /> Visit My Little Secret Again</button></div>
   );
   return null;
 }
@@ -232,19 +242,19 @@ export default function PrincessKingdom() {
       {!entered ? (
         <section className="portal scene">
           <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="castle" aria-label="Pink castle">
-            <div className="castle-crown">♕</div><div className="castle-window">♥</div>
+            <div className="castle-crown">♕</div><div className="castle-window">♥</div><HerPhotoSticker className="castle-sticker" />
           </motion.div>
           <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }} className="portal-copy">
             <p className="eyebrow">A magical gift for</p>
-            <h1>Welcome, Princess {princessDay.recipientName} <span>👑</span></h1>
+            <h1>Welcome, Mera {princessDay.recipientName} <span>👑</span></h1>
             <p>{princessDay.openingMessage}</p><p className="yes">Yes, that&apos;s you!</p>
-            <button className="primary-button" onClick={() => { setEntered(true); go(1); }}>Enter My Little Kingdom <Sparkles size={18} /></button>
+            <button className="primary-button" onClick={() => { setEntered(true); go(1); }}>Enter My Little Secret <Sparkles size={18} /></button>
           </motion.div>
         </section>
       ) : (
         <>
           <header className="kingdom-nav">
-            <button className="brand" onClick={() => go(0)}><span>♕</span> Bacha&apos;s Kingdom</button>
+            <button className="brand" onClick={() => go(0)}><span>♕</span> Mera Bacha&apos;s Little Secret</button>
             <button className="menu-button" onClick={() => setMenu(true)} aria-label="Open scene navigation"><Menu /></button>
           </header>
           <AnimatePresence mode="wait">
@@ -265,7 +275,7 @@ export default function PrincessKingdom() {
       )}
       <AnimatePresence>{menu && <motion.aside className="nav-drawer" initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}>
         <button className="drawer-close" onClick={() => setMenu(false)} aria-label="Close navigation"><X /></button>
-        <p className="eyebrow">Explore the kingdom</p>
+        <p className="eyebrow">Explore this little secret</p>
         {scenes.map((name, i) => <button key={name} className={scene === i ? "active" : ""} onClick={() => i === 0 ? go(0) : go(i)}><span>{String(i).padStart(2, "0")}</span>{name}</button>)}
       </motion.aside>}</AnimatePresence>
     </main>

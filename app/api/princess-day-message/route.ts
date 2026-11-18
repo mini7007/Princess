@@ -47,9 +47,9 @@ export async function POST(request: NextRequest) {
     try {
       const resend = new Resend(resendKey);
       await resend.emails.send({
-        from: process.env.RESEND_FROM_EMAIL || "Bacha's Little Kingdom <onboarding@resend.dev>",
+        from: process.env.RESEND_FROM_EMAIL || "Mera Bacha's Little Secret <onboarding@resend.dev>",
         to: ["mohan5050390@gmail.com"],
-        subject: "Your Princess left you a little message 👑",
+        subject: "Mera Bacha left you a little message 👑",
         text: `${mood ? `Mood: ${mood}\n\n` : ""}${message}`,
       });
     } catch (error) {

@@ -7,8 +7,8 @@ const nunito = Nunito({ variable: "--font-sans", subsets: ["latin"] });
 const caveat = Caveat({ variable: "--font-hand", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Bacha's Little Kingdom",
-  description: "A magical Princess Day experience made by Mohan",
+  title: "Mera Bacha's Little Secret",
+  description: "A little secret, made especially for Mera Bacha by Mohan",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

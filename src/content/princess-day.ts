@@ -3,11 +3,11 @@ import { media } from "./media";
 export const princessDay = {
   senderName: "Mohan",
   recipientName: "Bacha",
-  eventTitle: "Princess Day",
+  eventTitle: "Mera Bacha Day",
   relationshipStart: "18 September 2023",
-  openingMessage: "Today, this little kingdom has been created for one very special person.",
-  introductionTitle: "Her Royal Introduction",
-  introduction: "Not every princess lives in a fairytale castle. Some make ordinary days feel magical just by being themselves.",
+  openingMessage: "Today, this little secret has been made for one very special person.",
+  introductionTitle: "A Little Introduction to Mera Bacha",
+  introduction: "Some people make ordinary days feel magical just by being themselves. You are one of them.",
   profilePortrait: media.profilePortrait,
   gallery: media.gallery,
   letters: [
@@ -34,7 +34,7 @@ export const princessDay = {
     "Some feelings are easier to keep in a secret letter.",
     "A bouquet of warm thoughts, blooming especially for you.",
     "Imagine every little heart here finding its way to you.",
-    "Happy Princess Day — may today feel as special as you are.",
+    "A little wish, made especially for Mera Bacha.",
   ],
   wishes: [
     "May you always have reasons to smile.",
@@ -55,5 +55,5 @@ export const princessDay = {
     { title: "Shared dreams", text: "Collect hopes for the future, gently and openly." },
     { title: "Things to learn", text: "Discover something new together, one step at a time." },
   ],
-  finalMessage: "Thank you for being you, Bacha.\n\nI hope this little kingdom made you smile, even if just for a moment.\n\nYou deserve beautiful things, thoughtful gestures, happiness and countless reasons to smile.\n\nHappy Princess Day, my favourite girl.",
+  finalMessage: "Thank you for being you, Mera Bacha.\n\nI hope this little secret made you smile, even if just for a moment.\n\nYou deserve beautiful things, thoughtful gestures, happiness and countless reasons to smile.\n\nHappy Mera Bacha Day, my favourite girl.",
 };
