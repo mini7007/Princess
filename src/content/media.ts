@@ -23,8 +23,8 @@ export const media = {
   backgroundImages: [] as string[],
   decorativeIllustrations: [] as string[],
   music: [
-    { title: "Khat", artist: "Bacha's Little Kingdom", url: "" },
-    { title: "Faasle", artist: "Bacha's Little Kingdom", url: "" },
-    { title: "Alfaaz", artist: "Bacha's Little Kingdom", url: "" },
+    { title: "Khat", artist: "Bacha's Little Kingdom", url: "https://ik.imagekit.io/Myimage/Navjot%20Ahuja%20-%20Khat%20(Official%20Audio).mp3?updatedAt=1793460408748" },
+    { title: "Vaaroon", artist: "Bacha's Little Kingdom", url: "https://ik.imagekit.io/Myimage/Vaaroon%20-%20Mirzapur%20Pankaj%20Tripathi,%20Ali%20Fazal,%20Divyenndu%20Romy,%20Anand%20Bhaskar,%20Ginny%20D%20Lyrical.mp3" },
+    { title: "Alfaaz", artist: "Bacha's Little Kingdom", url: "https://ik.imagekit.io/Myimage/Alfaaz%20-%20Hamza%20Malik,%20Zain%20Ali%20Lyrics.mp3?updatedAt=1793460400494" },
   ],
 };
