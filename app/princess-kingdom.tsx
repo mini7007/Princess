@@ -34,8 +34,8 @@ function photoCardStyle(index: number, dark = false) {
   const photo = princessDay.gallery[index % princessDay.gallery.length];
   if (!photo) return undefined;
   const overlay = dark
-    ? "linear-gradient(145deg, rgba(71,70,111,.88), rgba(69,78,119,.9))"
-    : "linear-gradient(145deg, rgba(255,250,253,.89), rgba(237,241,250,.92))";
+    ? "linear-gradient(145deg, rgba(71,70,111,.91), rgba(69,78,119,.93))"
+    : "linear-gradient(145deg, rgba(255,250,253,.92), rgba(237,241,250,.94))";
   return { backgroundImage: `${overlay}, url("${photo.src}")` };
 }
 
