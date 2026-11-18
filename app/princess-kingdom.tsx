@@ -39,21 +39,26 @@ function photoCardStyle(index: number, dark = false) {
   return { backgroundImage: `${overlay}, url("${photo.src}")` };
 }
 
-function BabyDoodle({ palette }: { palette: "violet" | "blue" }) {
-  const colors = palette === "violet"
-    ? { outfit: "#d8d1ef", hair: "#665895", detail: "#8a78bd" }
-    : { outfit: "#d3e2f4", hair: "#5e79ad", detail: "#7e9bc9" };
+function MiniDoodle({ person }: { person: "mohan" | "bacha" }) {
+  const isMohan = person === "mohan";
+  const colors = isMohan
+    ? { outfit: "#d8d1ef", hair: "#342f3b", detail: "#8a78bd" }
+    : { outfit: "#d3e2f4", hair: "#382f3b", detail: "#7e9bc9" };
 
-  return <svg className="baby-doodle-art" viewBox="0 0 180 210" role="img" aria-label="A smiling baby doodle">
+  return <svg className="mini-doodle-art" viewBox="0 0 180 210" role="img" aria-label={isMohan ? "Mohan's mini doodle" : "Bacha's mini doodle"}>
+    {!isMohan && <path d="M39 83C27 34 49 12 88 12c43 0 67 28 54 80l-4 51c-2 18-12 25-24 8l-9-24H72l-12 24c-9 17-22 10-22-8Z" fill={colors.hair} stroke="#514878" strokeWidth="4" strokeLinejoin="round" />}
     <path d="M44 132c-17 8-24 23-19 38 4 11 14 14 24 7l12-15m75-30c17 8 24 23 19 38-4 11-14 14-24 7l-12-15" fill="none" stroke="#514878" strokeWidth="9" strokeLinecap="round" />
     <path d="M48 139c-2 23 2 44 12 55h60c10-11 14-32 12-55-12-12-26-18-42-18s-30 6-42 18Z" fill={colors.outfit} stroke="#514878" strokeWidth="4" />
     <path d="M71 178c-3 11-12 15-22 15m60-15c3 11 12 15 22 15" fill="none" stroke="#514878" strokeWidth="7" strokeLinecap="round" />
-    <circle cx="90" cy="79" r="52" fill="#ffe8d9" stroke="#514878" strokeWidth="4" />
-    <path d="M39 79c-5-35 15-62 48-64 32-2 54 21 54 56-13-3-22-12-28-25-16 13-38 20-74 19Z" fill={colors.hair} stroke="#514878" strokeWidth="4" strokeLinejoin="round" />
-    <path d="M51 47c-6-14 0-25 12-30m66 30c6-14 0-25-12-30" fill="none" stroke={colors.detail} strokeWidth="8" strokeLinecap="round" />
-    <ellipse cx="70" cy="85" rx="4" ry="6" fill="#514878" /><ellipse cx="109" cy="85" rx="4" ry="6" fill="#514878" />
-    <path d="M80 101c6 7 14 7 20 0" fill="none" stroke="#514878" strokeWidth="4" strokeLinecap="round" />
-    <ellipse cx="58" cy="98" rx="9" ry="5" fill="#efaeb9" opacity=".75" /><ellipse cx="122" cy="98" rx="9" ry="5" fill="#efaeb9" opacity=".75" />
+    <ellipse cx="90" cy="79" rx="47" ry="53" fill="#ffe8d9" stroke="#514878" strokeWidth="4" />
+    {isMohan
+      ? <path d="M43 72c-7-35 15-58 45-59 31-1 48 20 48 48-13-1-23-8-29-21-16 14-35 20-64 20Z" fill={colors.hair} stroke="#514878" strokeWidth="4" strokeLinejoin="round" />
+      : <path d="M44 69c5-34 25-49 48-49 25 0 42 17 45 44-15-2-26-10-33-23-14 14-32 21-60 22Z" fill={colors.hair} stroke="#514878" strokeWidth="4" strokeLinejoin="round" />}
+    {isMohan && <path d="M47 95c3 28 16 42 43 43 27-1 40-15 43-43l-12-5c-2 24-11 35-31 36-20-1-29-12-31-36Z" fill={colors.hair} />}
+    <path d="M59 74c6-4 13-4 19 0m24 0c6-4 13-4 19 0" fill="none" stroke="#514878" strokeWidth="3" strokeLinecap="round" />
+    <ellipse cx="69" cy="85" rx="3.5" ry="5" fill="#514878" /><ellipse cx="111" cy="85" rx="3.5" ry="5" fill="#514878" />
+    <path d="M80 105c6 7 14 7 20 0" fill="none" stroke="#514878" strokeWidth="4" strokeLinecap="round" />
+    <ellipse cx="57" cy="98" rx="8" ry="5" fill="#efaeb9" opacity=".75" /><ellipse cx="123" cy="98" rx="8" ry="5" fill="#efaeb9" opacity=".75" />
     <path d="M82 144h16m-8-8v16" stroke={colors.detail} strokeWidth="4" strokeLinecap="round" />
   </svg>;
 }
@@ -157,9 +162,9 @@ function SceneContent(props: SceneProps) {
   );
   if (scene === 8) return (
     <div className="hug-layout"><div className="section-heading"><p className="eyebrow">A little hug from me</p><h2>Two little doodles, one big hug.</h2></div>
-      <button className={`hug-stage ${hugged ? "hugged" : ""}`} onClick={() => setHugged(!hugged)} aria-label={hugged ? "Separate the baby doodles" : "Bring the two baby doodles together for a hug"}>
-        <motion.div className="baby-character baby-left" animate={{ x: hugged ? 48 : 0, rotate: hugged ? 7 : -3 }} transition={{ type: "spring", stiffness: 160, damping: 14 }}><BabyDoodle palette="violet" /></motion.div>
-        <motion.div className="baby-character baby-right" animate={{ x: hugged ? -48 : 0, rotate: hugged ? -7 : 3 }} transition={{ type: "spring", stiffness: 160, damping: 14 }}><BabyDoodle palette="blue" /></motion.div>
+      <button className={`hug-stage ${hugged ? "hugged" : ""}`} onClick={() => setHugged(!hugged)} aria-label={hugged ? "Separate Mohan and Bacha's doodles" : "Bring Mohan and Bacha's doodles together for a hug"}>
+        <motion.div className="mini-doodle-character doodle-mohan" animate={{ x: hugged ? 48 : 0, rotate: hugged ? 7 : -3 }} transition={{ type: "spring", stiffness: 160, damping: 14 }}><MiniDoodle person="mohan" /></motion.div>
+        <motion.div className="mini-doodle-character doodle-bacha" animate={{ x: hugged ? -48 : 0, rotate: hugged ? -7 : 3 }} transition={{ type: "spring", stiffness: 160, damping: 14 }}><MiniDoodle person="bacha" /></motion.div>
         <AnimatePresence>{hugged && <motion.div className="hug-burst" initial={{ opacity: 0, scale: .2 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .2 }}><Heart fill="currentColor" /></motion.div>}</AnimatePresence>
         <span className="hug-prompt">{hugged ? "A hug, just for you" : "Tap to make them hug"}</span>
       </button>

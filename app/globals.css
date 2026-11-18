@@ -226,7 +226,7 @@ body { background: var(--lily-cream); color: var(--lily-ink); }
   box-shadow: 0 24px 60px rgba(70,70,111,.12);
   color: var(--lily-ink);
 }
-.baby-character {
+.mini-doodle-character {
   position: absolute;
   bottom: 35px;
   width: 180px;
@@ -235,9 +235,9 @@ body { background: var(--lily-cream); color: var(--lily-ink); }
   place-items: center;
   transform-origin: bottom center;
 }
-.baby-left { left: calc(50% - 200px); }
-.baby-right { left: calc(50% + 20px); }
-.baby-doodle-art { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 8px 8px rgba(70,70,111,.1)); }
+.doodle-mohan { left: calc(50% - 200px); }
+.doodle-bacha { left: calc(50% + 20px); }
+.mini-doodle-art { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 8px 8px rgba(70,70,111,.1)); }
 .hug-burst {
   position: absolute;
   z-index: 3;
@@ -253,7 +253,7 @@ body { background: var(--lily-cream); color: var(--lily-ink); }
 .replay-button { color: var(--lily-violet); }
 @media (max-width: 800px) {
   .hug-stage { height: 270px; border-radius: 30px; }
-  .baby-character { width: 145px; height: 205px; bottom: 36px; }
-  .baby-left { left: calc(50% - 162px); }
-  .baby-right { left: calc(50% + 17px); }
+  .mini-doodle-character { width: 145px; height: 205px; bottom: 36px; }
+  .doodle-mohan { left: calc(50% - 162px); }
+  .doodle-bacha { left: calc(50% + 17px); }
 }
